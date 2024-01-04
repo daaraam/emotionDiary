@@ -20,7 +20,6 @@ body {
   }
 }
 
-
 @media (max-width: 650px) {
   .App {
     width: 90vw
@@ -57,16 +56,6 @@ body {
 .MyButton_default {
   background-color: #ececec;
   cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 18px;
-  white-space: nowrap;
-  /* 버튼 안의 글이 두줄이 되지 않게 */
-  font-family: 'Satisfy', cursive;
 }
 
 .MyButton_positive {
@@ -79,35 +68,4 @@ body {
   background-color: #e83a3a;
   color: rgb(255, 255, 255);
 
-}
-
-/* Header */
-
-header {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #e2e2e2;
-  font-family: 'Noto Serif KR', serif;
-}
-
-header>div {
-  display: flex;
-}
-
-header .head_text {
-  width: 50%;
-  font-size: 25px;
-  justify-content: center;
-}
-
-header .head_btn_left {
-  justify-content: start;
-  width: 25%;
-}
-
-header .head_btn_right {
-  justify-content: end;
-  width: 25%;
 }
