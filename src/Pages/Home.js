@@ -3,6 +3,7 @@ import { DiaryStateContext } from '../App';
 import DiaryList from '../Components/DiaryList';
 import MyButton from './../Components/MyButton';
 import MyHeader from './../Components/MyHeader';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 	const diaryList = useContext(DiaryStateContext);

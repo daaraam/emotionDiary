@@ -50,7 +50,9 @@ body {
   font-size: 18px;
   white-space: nowrap;
   /* 버튼 안의 글이 두줄이 되지 않게 */
-  font-family: 'Satisfy', cursive;
+  font-family: 'Noto Sans KR', serif;
+  font-weight: 900;
+
 }
 
 .MyButton_default {
