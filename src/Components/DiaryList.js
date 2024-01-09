@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import DiaryItem from './DiaryItem';
 import MyButton from './MyButton';
 const sortOptionList = [
 	{
@@ -29,7 +29,7 @@ const sortEmotionList = [
 ];
 const ControlMenu = ({ value, onChange, optionList }) => {
 	return (
-		<select value={value} onChange={e => onChange(e.target.value)}>
+		<select className="ControlMenu" value={value} onChange={e => onChange(e.target.value)}>
 			{optionList.map((item, index) => (
 				<option key={index} value={item.value}>
 					{item.name}
@@ -71,46 +71,29 @@ export default function DiaryList({ diaryList }) {
 	console.log(parseInt(one) - parseInt(two));
 
 	return (
-		<DiaryListContainer>
-			<MenuWrapper>
-				<LeftCol>
+		<div className="DiaryList">
+			<div className="menu_wrapper">
+				<div className="left_col">
 					<ControlMenu value={sortType} optionList={sortOptionList} onChange={setSortType} />
 					<ControlMenu value={filter} optionList={sortEmotionList} onChange={setFilter} />
-				</LeftCol>
-				<RightCol>
+				</div>
+
+				<div className="right_col">
 					<MyButton
-						text={'새로운 일기 작성'}
+						text={'새로운 일기쓰기'}
 						type={'positive'}
 						onClick={() => {
 							negative('/new');
 						}}
 					/>
-				</RightCol>
-				{getProcessedDiaryList().map(item => (
-					<div key={item.id}>
-						{item.content} {item.emotion}
-					</div>
-				))}
-			</MenuWrapper>
-		</DiaryListContainer>
+				</div>
+			</div>
+
+			{getProcessedDiaryList().map(item => (
+				<DiaryItem key={item.id} {...item}></DiaryItem>
+			))}
+		</div>
 	);
 }
 
 // getProcessedDiaryList을 화면에 뿌려주고 있는데 이건 sortedList를 리턴하는 함수고, sortedList는 filteredList를 compare로 sort한 값이니까 f-c-s-g 순.
-
-const DiaryListContainer = styled.div`
-	padding: 1rem;
-`;
-
-const MenuWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-`;
-const LeftCol = styled.div`
-	display: flex;
-	justify-content: start;
-`;
-const RightCol = styled.div`
-	display: flex;
-	justify-content: end;
-`;
