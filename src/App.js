@@ -102,31 +102,6 @@ function App() {
 			<DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
 				<div className="App">
 					<BrowserRouter>
-						{/* <img src={process.env.PUBLIC_URL + `/assets/emotion1.png`} />
-				<img src={process.env.PUBLIC_URL + `/assets/emotion2.png`} />
-				<img src={process.env.PUBLIC_URL + `/assets/emotion3.png`} />
-				<img src={process.env.PUBLIC_URL + `/assets/emotion4.png`} />
-				<img src={process.env.PUBLIC_URL + `/assets/emotion5.png`} /> */}
-						{/* <MyButton
-							text={'Positive'}
-							onClick={() => {
-								alert('버튼 클릭');
-							}}
-							type={'positive'}
-						/>
-						<MyButton
-							text={'Negative'}
-							onClick={() => {
-								alert('버튼 클릭');
-							}}
-							type={'negative'}
-						/>
-						<MyButton
-							text={'Button'}
-							onClick={() => {
-								alert('버튼 클릭');
-							}}
-						/> */}
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/new" element={<New />} />

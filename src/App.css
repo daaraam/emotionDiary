@@ -2,16 +2,18 @@
 
 
 body {
+
   background-color: #f6f6f6;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-family: 'Satisfy', cursive;
-  font-family: 'Noto Serif KR', serif;
   font-family: 'Noto Sans KR', serif;
+  font-family: 'Noto Serif KR', serif;
+  font-family: 'Satisfy', cursive;
+  font-family: 'Noto Sans KR', sans-serif;
+
 }
 
 
