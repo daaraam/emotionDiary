@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DiaryItem from './DiaryItem';
 import MyButton from './MyButton';
+
 const sortOptionList = [
 	{
 		value: 'latest',
@@ -65,10 +66,6 @@ export default function DiaryList({ diaryList }) {
 		const sortedList = filteredList.sort(compare);
 		return sortedList;
 	};
-
-	let one = parseInt(new Date().getTime());
-	let two = parseInt(new Date().getTime() + 1);
-	console.log(parseInt(one) - parseInt(two));
 
 	return (
 		<div className="DiaryList">

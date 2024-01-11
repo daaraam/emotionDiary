@@ -1,0 +1,122 @@
+import React, { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { DiaryDispatchContext } from '../App';
+import EmotionItem from './EmotionItem';
+import MyButton from './MyButton';
+import MyHeader from './MyHeader';
+
+const emotionList = [
+	{
+		emotion_id: 1,
+		emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,
+		emotion_description: '완전 좋아!',
+	},
+	{
+		emotion_id: 2,
+		emotion_img: process.env.PUBLIC_URL + `/assets/emotion2.png`,
+		emotion_description: '좋음',
+	},
+	{
+		emotion_id: 3,
+		emotion_img: process.env.PUBLIC_URL + `/assets/emotion3.png`,
+		emotion_description: '보통',
+	},
+	{
+		emotion_id: 4,
+		emotion_img: process.env.PUBLIC_URL + `/assets/emotion4.png`,
+		emotion_description: '나쁨',
+	},
+	{
+		emotion_id: 5,
+		emotion_img: process.env.PUBLIC_URL + `/assets/emotion5.png`,
+		emotion_description: '최악!',
+	},
+];
+function DiaryEditor() {
+	const { onCreate } = useContext(DiaryDispatchContext);
+	const getStringDate = date => {
+		return date.toISOString().slice(0, 10);
+	};
+	const navigate = useNavigate();
+	const contentRef = useRef();
+	const [date, setDate] = useState(getStringDate(new Date()));
+	const [emotion, setEmotion] = useState(3);
+	const [content, setContent] = useState('');
+	const handleClickEmote = emotion => {
+		setEmotion(emotion);
+	};
+
+	const handleSubmit = () => {
+		if (content.length < 1) {
+			contentRef.current.focus();
+			return;
+		}
+
+		onCreate(date, content, emotion);
+		navigate('/', { replace: true });
+		//replace true를 하면 뒤로가기를 눌러도 '/'로 이동하지 못함
+	};
+	return (
+		<div className="DiaryEditor">
+			<MyHeader
+				headText={'New Diary'}
+				leftChild={
+					<MyButton
+						onClick={() => {
+							navigate(-1);
+						}}
+						text={'<  뒤로가기'}
+					/>
+				}
+			/>
+
+			<div>
+				<section>
+					<h4>오늘은 언제인가요?</h4>
+					<div className="input_box">
+						<input
+							className="input_date"
+							type="date"
+							value={date}
+							onChange={e => setDate(e.target.value)}
+						/>
+					</div>
+				</section>
+
+				<section>
+					<h4>오늘의 감정</h4>
+					<div className="input_box emotion_list_wrapper">
+						{emotionList.map(item => (
+							<EmotionItem
+								onClick={handleClickEmote}
+								key={item.emotion_id}
+								isSelected={emotion === item.emotion_id}
+								{...item}
+							/>
+						))}
+					</div>
+				</section>
+
+				<section>
+					<h4>오늘의 일기</h4>
+					<div className="input_box text_wrapper">
+						<textarea
+							placeholder="오늘은 어땠나요?"
+							ref={contentRef}
+							value={content}
+							onChange={e => setContent(e.target.value)}
+						/>
+					</div>
+				</section>
+
+				<section>
+					<div className="control_box">
+						<MyButton text={'취소하기'} onClick={() => navigate(-1)} />
+						<MyButton text={'작성완료'} onClick={handleSubmit} type={'positive'} />
+					</div>
+				</section>
+			</div>
+		</div>
+	);
+}
+export default DiaryEditor;
