@@ -22,6 +22,10 @@ function Home() {
 			curDate.getFullYear(), //
 			curDate.getMonth() + 1,
 			0,
+			23,
+			59,
+			59,
+			// 시, 분, 초까지 비교해야 달의 마지막날이 됨
 		).getTime();
 
 		// firstDay보다는 뒤고 lastDay보다는 과거인 이번달데이터

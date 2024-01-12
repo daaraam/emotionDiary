@@ -1,42 +1,15 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DiaryDispatchContext } from '../App';
+import { getStringDate } from '../util/date';
+import { emotionList } from '../util/emotion';
 import EmotionItem from './EmotionItem';
 import MyButton from './MyButton';
 import MyHeader from './MyHeader';
 
-const emotionList = [
-	{
-		emotion_id: 1,
-		emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,
-		emotion_description: '완전 좋아!',
-	},
-	{
-		emotion_id: 2,
-		emotion_img: process.env.PUBLIC_URL + `/assets/emotion2.png`,
-		emotion_description: '좋음',
-	},
-	{
-		emotion_id: 3,
-		emotion_img: process.env.PUBLIC_URL + `/assets/emotion3.png`,
-		emotion_description: '보통',
-	},
-	{
-		emotion_id: 4,
-		emotion_img: process.env.PUBLIC_URL + `/assets/emotion4.png`,
-		emotion_description: '나쁨',
-	},
-	{
-		emotion_id: 5,
-		emotion_img: process.env.PUBLIC_URL + `/assets/emotion5.png`,
-		emotion_description: '최악!',
-	},
-];
-function DiaryEditor() {
-	const { onCreate } = useContext(DiaryDispatchContext);
-	const getStringDate = date => {
-		return date.toISOString().slice(0, 10);
-	};
+function DiaryEditor({ isEdit, originData }) {
+	const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
+
 	const navigate = useNavigate();
 	const contentRef = useRef();
 	const [date, setDate] = useState(getStringDate(new Date()));
@@ -52,22 +25,46 @@ function DiaryEditor() {
 			return;
 		}
 
-		onCreate(date, content, emotion);
+		if (window.confirm(isEdit ? '일기를 수정하시겠습니까?' : '일기를 작성하시겠습니까?')) {
+			if (!isEdit) {
+				onCreate(date, content, emotion);
+			} else {
+				onEdit(originData.id, date, emotion, content);
+			}
+		}
+
 		navigate('/', { replace: true });
 		//replace true를 하면 뒤로가기를 눌러도 '/'로 이동하지 못함
 	};
+
+	const handleRemove = () => {
+		if (window.confirm('삭제하시겠습니까?')) {
+			onRemove(originData.id);
+			navigate('/', { replace: true });
+		}
+	};
+
+	useEffect(() => {
+		if (isEdit) {
+			setDate(getStringDate(new Date(parseInt(originData.date))));
+			setEmotion(originData.emotion);
+			setContent(originData.content);
+		}
+	}, [isEdit, originData]);
+
 	return (
 		<div className="DiaryEditor">
 			<MyHeader
-				headText={'New Diary'}
+				headText={isEdit ? 'Edit Diary' : 'New Diary'}
 				leftChild={
 					<MyButton
 						onClick={() => {
 							navigate(-1);
 						}}
-						text={'<  뒤로가기'}
+						text={'<  Back'}
 					/>
 				}
+				rightChild={isEdit && <MyButton text={'Delete'} type={'negative'} onClick={handleRemove} />}
 			/>
 
 			<div>
