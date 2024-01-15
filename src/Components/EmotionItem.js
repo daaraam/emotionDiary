@@ -12,4 +12,4 @@ function EmotionItem({ emotion_id, emotion_description, emotion_img, onClick, is
 	);
 }
 
-export default EmotionItem;
+export default React.memo(EmotionItem);

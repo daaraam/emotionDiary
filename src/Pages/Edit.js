@@ -9,6 +9,10 @@ function Edit() {
 	const { id } = useParams();
 	const diaryList = useContext(DiaryStateContext);
 	useEffect(() => {
+		const titleElement = document.getElementsByTagName('title')[0];
+		titleElement.innerHTML = `${id}번째 일기 수정`;
+	}, []);
+	useEffect(() => {
 		if (diaryList.length >= 1) {
 			const targetDiary = diaryList.find(item => parseInt(item.id) === parseInt(id));
 			console.log(targetDiary);

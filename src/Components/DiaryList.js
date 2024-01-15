@@ -28,7 +28,8 @@ const sortEmotionList = [
 		name: '나쁜 감정',
 	},
 ];
-const ControlMenu = ({ value, onChange, optionList }) => {
+
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
 	return (
 		<select className="ControlMenu" value={value} onChange={e => onChange(e.target.value)}>
 			{optionList.map((item, index) => (
@@ -38,7 +39,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 			))}
 		</select>
 	);
-};
+});
 
 export default function DiaryList({ diaryList }) {
 	const [sortType, setSortType] = useState('latest');
